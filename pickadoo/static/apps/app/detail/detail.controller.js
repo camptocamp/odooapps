@@ -22,7 +22,7 @@ angular.module('pickadoo')
                 console.log($scope.item.paid);
                 if ( $scope.item.paid ) {
                     $scope.paymentMessage = translations.PAYMENT_DONE;
-                } else if ( $scope.item.payment_method == 'CB' && ! $scope.item.blocked) {
+                } else if ( ($scope.item.payment_method == 'hipay_hosted_fields' || $scope.item.payment_method == 'paybox_system') && ! $scope.item.blocked) {
                     $scope.paymentMessage = translations.PAYMENT_PROCESSING;
                     $scope.capturing = true;
                     jsonRpc.call('stock.picking.out', 'capture_order', [[$scope.item.id]], {})
