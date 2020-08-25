@@ -22,22 +22,6 @@ angular.module('pickadoo')
                 console.log($scope.item.paid);
                 if ( $scope.item.paid ) {
                     $scope.paymentMessage = translations.PAYMENT_DONE;
-                } else if ( $scope.item.payment_method == 'CB' && ! $scope.item.blocked) {
-                    $scope.paymentMessage = translations.PAYMENT_PROCESSING;
-                    $scope.capturing = true;
-                    jsonRpc.call('stock.picking.out', 'capture_order', [[$scope.item.id]], {})
-                        .then(
-                            function(){
-                                $scope.paymentMessage = translations.PAYMENT_DONE;
-                                $scope.item.paid = true;
-                                picking.data[$scope.item.id].paid = true;
-                                $scope.end_capturing();
-                            },
-                            function(error) {
-                                $scope.paymentMessage = translations.PAYMENT_FAIL + '<br/><br/>' + error.message;
-                                $scope.end_capturing();
-                            }
-                        )
                 } else {
                     $scope.paymentMessage = translations.PAYMENT_MISSING;
                 };
