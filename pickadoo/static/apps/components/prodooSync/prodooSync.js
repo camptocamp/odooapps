@@ -7,6 +7,7 @@ angular.module('pickadoo').factory('picking', ['$q', 'jsonRpc', function ($q, js
         func_key: 'pickadoo',
         base_domain: [
             ['type', '=', 'out'],
+            ['paid', '=', true],
             '|',
                 ['state', '=', 'assigned'],
                 '&',
@@ -15,10 +16,8 @@ angular.module('pickadoo').factory('picking', ['$q', 'jsonRpc', function ($q, js
             '|',
                 ['prepared', '=', false],
                 '&',
-                    '&',
-                        ['prepared', '=', true],
-                        ['process_in_pickadoo', '=', true],
-                    ['paid', '=', true]
+                    ['prepared', '=', true],
+                    ['process_in_pickadoo', '=', true],
             ],
         filter_domain: [],
         limit: 500,
